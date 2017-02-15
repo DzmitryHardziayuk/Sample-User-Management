@@ -14,6 +14,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.util.List;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -28,5 +30,13 @@ public class UserDaoImplTest{
 
         List<User> users = userDao.getAllUsers();
         assertTrue(users.size() == 2);
+    }
+
+    @Test
+    public void getUserByIdTest() throws Exception {
+
+        User user = userDao.getUserById(1);
+        assertNotNull(user);
+        assertEquals("userLogin1",user.getLogin());
     }
 }
