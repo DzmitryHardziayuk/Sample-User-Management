@@ -27,6 +27,6 @@ public class UserDaoImplTest{
     public void getAllUsersTest() throws Exception {
 
         List<User> users = userDao.getAllUsers();
-        //assertTrue(users.size() == 2);
+        assertTrue(users.size() == 2);
     }
 }
