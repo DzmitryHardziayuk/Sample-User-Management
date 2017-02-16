@@ -1,9 +1,7 @@
 package com.epam.test.dao;
 
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.RowCallbackHandler;
 import org.springframework.jdbc.core.RowMapper;
-import org.springframework.jdbc.core.SqlParameter;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
@@ -12,7 +10,6 @@ import javax.sql.DataSource;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Dao implementation.
@@ -22,6 +19,10 @@ public class UserDaoImpl implements UserDao {
     private JdbcTemplate jdbcTemplate;
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
+    // FIXME move SQL scripts to properties or external files
+    String getAllUsersSql = "select user_id, login, password, description from app_user";
+    String getUserByIdSql = "select user_id, login, password, description from app_user where user_id = :p_user_id";
+
     public UserDaoImpl(DataSource dataSource) {
         jdbcTemplate = new JdbcTemplate(dataSource);
         namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
@@ -29,7 +30,7 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public List<User> getAllUsers() {
-        String getAllUsersSql = "select user_id, login, password, description from app_user";
+
         return jdbcTemplate.query(getAllUsersSql, new UserRowMapper());
     }
 
@@ -37,8 +38,7 @@ public class UserDaoImpl implements UserDao {
     public User getUserById(Integer userId) {
         SqlParameterSource namedParameters = new MapSqlParameterSource("p_user_id", userId);
         User user = namedParameterJdbcTemplate.queryForObject(
-                "select user_id, login, password, description from app_user" +
-                " where user_id = :p_user_id", namedParameters, new UserRowMapper());
+                getUserByIdSql, namedParameters, new UserRowMapper());
         return user;
     }
 

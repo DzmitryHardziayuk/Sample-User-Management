@@ -4,7 +4,7 @@ import java.util.Objects;
 
 /**
  * Created by mentor on 13.2.17.
- *
+ * <p>
  * This is our 1st bean class.
  */
 public class User {

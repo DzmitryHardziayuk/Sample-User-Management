@@ -2,16 +2,19 @@ package com.epam.test.dao;
 
 import java.util.List;
 
+/**
+* DAO interface.
+*/
 public interface UserDao {
 
-    public List<User> getAllUsers();
+    List<User> getAllUsers();
 
-    public User getUserById(Integer userId);
+    User getUserById(Integer userId);
 
-    public Integer addUser(User user);
+    Integer addUser(User user);
 
-    public void updateUser(User user);
+    void updateUser(User user);
 
-    public void deleteUser(Integer userId);
+    void deleteUser(Integer userId);
 
 }
