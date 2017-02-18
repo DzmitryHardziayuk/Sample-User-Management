@@ -1,5 +1,7 @@
 package com.epam.test.dao;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
@@ -16,6 +18,8 @@ import java.util.List;
  */
 public class UserDaoImpl implements UserDao {
 
+    private static final Logger LOGGER = LogManager.getLogger();
+
     private JdbcTemplate jdbcTemplate;
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
@@ -30,12 +34,13 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public List<User> getAllUsers() {
-
+        LOGGER.debug("getAllUsers()");
         return jdbcTemplate.query(getAllUsersSql, new UserRowMapper());
     }
 
     @Override
     public User getUserById(Integer userId) {
+        LOGGER.debug("getUserById({})", userId);
         SqlParameterSource namedParameters = new MapSqlParameterSource("p_user_id", userId);
         User user = namedParameterJdbcTemplate.queryForObject(
                 getUserByIdSql, namedParameters, new UserRowMapper());
