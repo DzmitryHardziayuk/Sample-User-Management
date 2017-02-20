@@ -57,7 +57,7 @@ public class UserDaoImplTest {
         assertTrue(users.size() > 0);
     }
 
-    @Ignore
+    //@Ignore
     @Test
     public void getUserByIdTest() throws Exception {
 

@@ -35,26 +35,26 @@ public class UserDaoImpl implements UserDao {
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
     // FIXME move SQL scripts to properties or external files
-    String getAllUsersSql = "select user_id, login, password, description from app_user";
-    String getUserByIdSql = "select user_id, login, password, description from app_user where user_id = :p_user_id";
-    String insertUserSql = "insert into app_user (user_id, login, password, description) values (:user_id, :login, :password, :description)";
-    String updateUserSql = "update app_user set login = :login, password = :password, description = :description where user_id = :user_id";
-    String deleteUserSql = "delete from app_user where user_id = :user_id";
+    //String getAllUsersSql = "select user_id, login, password, description from app_user";
+//    String getUserByIdSql = "select user_id, login, password, description from app_user where user_id = :p_user_id";
+//    String insertUserSql = "insert into app_user (user_id, login, password, description) values (:user_id, :login, :password, :description)";
+//    String updateUserSql = "update app_user set login = :login, password = :password, description = :description where user_id = :user_id";
+//    String deleteUserSql = "delete from app_user where user_id = :user_id";
 
-//    @Value("${user.select}")
-//    String getAllUsersSql;
+    @Value("${user.select}")
+    String getAllUsersSql;
 
-//    @Value("${user.selectById}")
-//    String getUserByIdSql;
+    @Value("${user.selectById}")
+    String getUserByIdSql;
 
-//    @Value("${user.insert}")
-//    String insertUserSql;
+    @Value("${user.insert}")
+    String insertUserSql;
 
-//    @Value("${user.update}")
-//    String updateUserSql;
+    @Value("${user.update}")
+    String updateUserSql;
 
-//    @Value("${user.delete}")
-//    String deleteUserSql;
+    @Value("${user.delete}")
+    String deleteUserSql;
 
     public UserDaoImpl(DataSource dataSource) {
         jdbcTemplate = new JdbcTemplate(dataSource);
