@@ -20,7 +20,7 @@ public class UserDaoImplTest {
 
     private static final Logger LOGGER = LogManager.getLogger();
 
-    static final String USER_LOGIN_1 = "userLogin1";
+    private static final String USER_LOGIN_1 = "userLogin1";
 
     // sample user object for tests.
     private static final User user = new User("userLogin3", "userPassword3");

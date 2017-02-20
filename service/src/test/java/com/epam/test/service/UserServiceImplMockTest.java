@@ -23,17 +23,13 @@ public class UserServiceImplMockTest {
 
     private static final Logger LOGGER = LogManager.getLogger();
 
+    private static final User user = new User("userLogin3", "userPassword3");
+
     @Autowired
     private UserService userService;
 
     @Autowired
     private UserDao mockUserDao;
-
-    public void setMockUserDao(UserDao mockUserDao) {
-        this.mockUserDao = mockUserDao;
-    }
-
-    private static final User user = new User("userLogin3", "userPassword3");
 
     @After
     public void clean() {

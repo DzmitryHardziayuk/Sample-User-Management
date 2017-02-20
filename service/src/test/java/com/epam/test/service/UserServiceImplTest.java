@@ -24,9 +24,7 @@ public class UserServiceImplTest {
     @Autowired
     UserService userService;
 
-    public void setUserService(UserService userService) {
-        this.userService = userService;
-    }
+    private static final String USER_LOGIN_1 = "userLogin1";
 
     @Test
     public void getAllUsers() throws Exception {
@@ -41,7 +39,10 @@ public class UserServiceImplTest {
 
     @Test
     public void getUserByLogin() throws Exception {
-
+        User user = userService.getUserByLogin(USER_LOGIN_1);
+        Assert.assertNotNull(user);
+        Assert.assertNotNull(user.getLogin());
+        Assert.assertEquals(USER_LOGIN_1, user.getLogin());
     }
 
     @Test

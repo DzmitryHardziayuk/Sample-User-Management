@@ -30,7 +30,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<User> getAllUsers() throws DataAccessException {
-        return null;
+        return userDao.getAllUsers();
     }
 
     @Override
