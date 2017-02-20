@@ -1,17 +1,45 @@
 package com.epam.test.dao;
 
+import org.springframework.dao.DataAccessException;
+
 import java.util.List;
 
+/**
+* DAO interface.
+*/
 public interface UserDao {
 
-    public List<User> getAllUsers();
+    /**
+     * Get all users list.
+     *
+     * @return all users list
+     */
+    List<User> getAllUsers() throws DataAccessException;
 
-    public User getUserById(Integer userId);
+    /**
+     * Get user by Id.
+     *
+     * @param userId user identifier.
+     * @return user.
+     */
+    User getUserById(Integer userId) throws DataAccessException;
 
-    public Integer addUser(User user);
+    /**
+     * Create new user.
+     *
+     * @param user user.
+     * @return new user Id.
+     */
+    Integer addUser(User user) throws DataAccessException;
 
-    public void updateUser(User user);
+    /**
+     * Update user.
+     *
+     * @param user user.
+     * @return new user Id.
+     */
+    int updateUser(User user) throws DataAccessException;
 
-    public void deleteUser(Integer userId);
+    int deleteUser(Integer userId) throws DataAccessException;
 
 }
