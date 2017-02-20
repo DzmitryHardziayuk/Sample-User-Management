@@ -2,12 +2,12 @@ package com.epam.test.dao;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.*;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -15,6 +15,7 @@ import static org.junit.Assert.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"classpath*:test-spring-dao.xml"})
+@Transactional
 public class UserDaoImplTest {
 
     private static final Logger LOGGER = LogManager.getLogger();
@@ -27,6 +28,27 @@ public class UserDaoImplTest {
     @Autowired
     UserDao userDao;
 
+    @BeforeClass
+    public static void setUpBeforeClass() throws Exception {
+        LOGGER.error("execute: setUpBeforeClass()");
+    }
+
+    @AfterClass
+    public static void tearDownAfterClass() throws Exception {
+        LOGGER.error("execute: tearDownAfterClass()");
+    }
+
+
+    @Before
+    public void beforeTest() {
+        LOGGER.error("execute: beforeTest()");
+    }
+
+    @After
+    public void afterTest() {
+        LOGGER.error("execute: afterTest()");
+    }
+
     @Test
     public void getAllUsersTest() throws Exception {
 
@@ -35,6 +57,7 @@ public class UserDaoImplTest {
         assertTrue(users.size() > 0);
     }
 
+    @Ignore
     @Test
     public void getUserByIdTest() throws Exception {
 
@@ -63,6 +86,14 @@ public class UserDaoImplTest {
 
         users = userDao.getAllUsers();
         assertEquals(quantityBefore + 1, users.size());
+    }
+
+    @Test(expected = org.springframework.dao.DuplicateKeyException.class)
+    public void testAddDuplicateUser() throws Exception {
+        LOGGER.debug("test: testAddDuplicateUser()");
+        User xUser = new User("userLogin3", "userPassword3");
+        xUser.setUserId(1);
+        userDao.addUser(xUser);
     }
 
     @Test
