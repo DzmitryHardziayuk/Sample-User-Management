@@ -15,10 +15,10 @@
             <groupId>com.epam.test</groupId>
             <artifactId>model</artifactId>
         </dependency>
-        <!--<dependency>-->
-            <!--<groupId>com.epam.test</groupId>-->
-            <!--<artifactId>dao</artifactId>-->
-        <!--</dependency>-->
+        <dependency>
+            <groupId>com.epam.test</groupId>
+            <artifactId>dao</artifactId>
+        </dependency>
         <dependency>
             <groupId>com.epam.test</groupId>
             <artifactId>dao-api</artifactId>
