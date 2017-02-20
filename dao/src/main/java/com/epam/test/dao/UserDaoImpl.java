@@ -34,15 +34,11 @@ public class UserDaoImpl implements UserDao {
     private JdbcTemplate jdbcTemplate;
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
-    // FIXME move SQL scripts to properties or external files
-    //String getAllUsersSql = "select user_id, login, password, description from app_user";
-//    String getUserByIdSql = "select user_id, login, password, description from app_user where user_id = :p_user_id";
-//    String insertUserSql = "insert into app_user (user_id, login, password, description) values (:user_id, :login, :password, :description)";
-//    String updateUserSql = "update app_user set login = :login, password = :password, description = :description where user_id = :user_id";
-//    String deleteUserSql = "delete from app_user where user_id = :user_id";
-
     @Value("${user.select}")
     String getAllUsersSql;
+
+    @Value("${user.selectByLogin}")
+    String getUserByLoginSql;
 
     @Value("${user.selectById}")
     String getUserByIdSql;
@@ -73,6 +69,15 @@ public class UserDaoImpl implements UserDao {
         SqlParameterSource namedParameters = new MapSqlParameterSource("p_user_id", userId);
         User user = namedParameterJdbcTemplate.queryForObject(
                 getUserByIdSql, namedParameters, new UserRowMapper());
+        return user;
+    }
+
+    @Override
+    public User getUserByLogin(String login) throws DataAccessException {
+        LOGGER.debug("getUserByLogin({})", login);
+        SqlParameterSource namedParameters = new MapSqlParameterSource("p_login", login);
+        User user = namedParameterJdbcTemplate.queryForObject(
+                getUserByLoginSql, namedParameters, new UserRowMapper());
         return user;
     }
 
