@@ -25,6 +25,11 @@ public class UsersController {
     @Autowired
     UserService userService;
 
+    @GetMapping(value = "/")
+    public String defaultPageRedirect() {
+        return "redirect:users";
+    }
+
     @GetMapping(value = "/users")
     public String users(Model model) {
         LOGGER.debug(" /users page.");
@@ -34,7 +39,7 @@ public class UsersController {
     }
 
     @GetMapping(value = "/user")
-    public String hello(@RequestParam("id") Integer id,
+    public String editUser(@RequestParam("id") Integer id,
                         Model model) {
         LOGGER.debug("/user({})",id);
         User user = userService.getUserById(id);
