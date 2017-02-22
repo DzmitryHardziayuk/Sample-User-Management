@@ -34,7 +34,7 @@ public class UserServiceImplTest {
 
     @Test
     public void getUserById() throws Exception {
-
+        // FIXME implement test
     }
 
     @Test
@@ -47,17 +47,17 @@ public class UserServiceImplTest {
 
     @Test
     public void addUser() throws Exception {
-
+        // FIXME implement test
     }
 
     @Test
     public void updateUser() throws Exception {
-
+        // FIXME implement test
     }
 
     @Test
     public void deleteUser() throws Exception {
-
+        // FIXME implement test
     }
 
 }
