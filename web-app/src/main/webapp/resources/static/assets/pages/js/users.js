@@ -1,13 +1,19 @@
-$(document).ready(function () {
-    // render initial list of users
+function editUser(id) {
     $.ajax(
         {
-            url: '/users/' + 0,
+            url: '/user?id=' + id,
             dataType: 'html',
-            success: function (result) {
-                $('#user-list').html(result);
+            success: function (response) {
+                // console.log(response);
+                document.open();
+                document.write(response);
+                document.close();
+            },
+            error: function (response) {
+                console.error(response);
             }
-        });
-})
+        }
+    );
+}
 
 
