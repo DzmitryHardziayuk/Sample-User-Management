@@ -1,4 +1,4 @@
-package com.epam.test.client.api;
+package com.epam.test.client.rest.api;
 
 import com.epam.test.client.exception.ServerDataAccessException;
 import com.epam.test.dao.User;
