@@ -19,6 +19,7 @@
         <module>test-db</module>
         <module>web-app</module>
         <module>rest-app</module>
+        <module>client-api</module>
     </modules>
 
     <properties>
@@ -60,6 +61,11 @@
             <dependency>
                 <groupId>com.epam.test</groupId>
                 <artifactId>service</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.epam.test</groupId>
+                <artifactId>client-api</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
