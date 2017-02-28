@@ -39,12 +39,14 @@ public class UsersConsumerRest implements UsersConsumer {
 
     @Override
     public User getUserById(Integer userId) throws ServerDataAccessException {
-        return null;
+        ResponseEntity responseEntity = restTemplate.getForEntity(hostUrl + "/" + urlUser + "/" + userId, User.class);
+        Object user = responseEntity.getBody();
+        return (User) user;
     }
 
     @Override
     public User getUserByLogin(String login) throws ServerDataAccessException {
-        ResponseEntity responseEntity = restTemplate.getForEntity(hostUrl + "/" + urlUser + "/" + login, User.class);
+        ResponseEntity responseEntity = restTemplate.getForEntity(hostUrl + "/" + urlUser + "/login/" + login, User.class);
         Object user = responseEntity.getBody();
         return (User) user;
     }

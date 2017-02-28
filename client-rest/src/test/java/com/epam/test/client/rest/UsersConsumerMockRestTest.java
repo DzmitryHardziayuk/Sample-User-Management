@@ -35,7 +35,7 @@ public class UsersConsumerMockRestTest {
     private static final String USER_LOGIN_3 = "userLogin3";
     @Autowired
     UsersConsumer usersConsumer;
-    @Value("${user.protocol}://${user.host}:${user.port}/")
+    @Value("${user.protocol}://${user.host}:${user.port}")
     private String hostUrl;
     @Value("${point.users}")
     private String urlUsers;
@@ -66,7 +66,7 @@ public class UsersConsumerMockRestTest {
     @Test
     public void getUserByLogin() throws Exception {
 
-        expect(mockRestTemplate.getForEntity(hostUrl + "/" + urlUser + "/" + "userLogin3", User.class))
+        expect(mockRestTemplate.getForEntity(hostUrl + "/" + urlUser + "/login/" + "userLogin3", User.class))
                 .andReturn(new ResponseEntity<User>(user3, HttpStatus.FOUND));
         replay(mockRestTemplate);
 

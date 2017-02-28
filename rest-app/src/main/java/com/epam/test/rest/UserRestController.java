@@ -42,11 +42,19 @@ public class UserRestController {
         userService.updateUser(new User(id, login, password, desc));
     }
 
-    //curl -v localhost:8088/user/userLogin1
-    @RequestMapping(value = "/user/{login}", method = RequestMethod.GET)
+    //curl -v localhost:8088/user/login/userLogin1
+    @RequestMapping(value = "/user/login/{login}", method = RequestMethod.GET)
     @ResponseStatus(value = HttpStatus.FOUND)
-    public @ResponseBody User getUser(@PathVariable(value = "login") String login) {
+    public @ResponseBody User getUserByLogin(@PathVariable(value = "login") String login) {
         LOGGER.debug("getUser: login = {}", login);
         return userService.getUserByLogin(login);
+    }
+
+    //curl -v localhost:8088/user/1
+    @RequestMapping(value = "/user/{id}", method = RequestMethod.GET)
+    @ResponseStatus(value = HttpStatus.FOUND)
+    public @ResponseBody User getUserById(@PathVariable(value = "id") Integer id) {
+        LOGGER.debug("getUserById: login = {}", id);
+        return userService.getUserById(id);
     }
 }
