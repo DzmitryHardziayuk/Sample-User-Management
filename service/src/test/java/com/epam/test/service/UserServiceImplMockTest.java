@@ -39,7 +39,8 @@ public class UserServiceImplMockTest {
 
     @Test
     public void testAddUser() throws Exception {
-        expect(mockUserDao.addUser(new User("userLogin3", "userPassword3"))).andReturn(5);
+        expect(mockUserDao.getUserByLogin(user.getLogin())).andReturn(null);
+        expect(mockUserDao.addUser(user)).andReturn(5);
         replay(mockUserDao);
         Integer id = userService.addUser(user);
         Assert.isTrue(id == 5);
