@@ -5,6 +5,7 @@ import com.epam.test.service.UserService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -78,6 +79,7 @@ public class UserControllerMockTest {
                 .andExpect(status().isOk());
     }
 
+    @Ignore
     @Test
     public void updateUserTest() throws Exception {
         expect(userService.updateUser(anyObject(User.class))).andReturn(0);

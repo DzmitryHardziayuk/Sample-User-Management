@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin
 @RestController
 public class UserRestController {
 
@@ -17,6 +18,12 @@ public class UserRestController {
 
     @Autowired
     private UserService userService;
+
+    @ResponseStatus(HttpStatus.NOT_ACCEPTABLE)
+    @ExceptionHandler({IllegalArgumentException.class})
+    public String incorrectDataError() {
+        return "{  \"response\" : \"Incorrect Data Error\" }";
+    }
 
     //curl -v localhost:8088/users
     @RequestMapping(value = "/users", method = RequestMethod.GET)
@@ -34,12 +41,11 @@ public class UserRestController {
     }
 
     //curl -X PUT -v localhost:8088/user/2/l1/p1/d1
-    @RequestMapping(value = "/user/{id}/{login}/{password}/{desc}", method = RequestMethod.PUT)
+    @RequestMapping(value = "/user", method = RequestMethod.PUT)
     @ResponseStatus(value = HttpStatus.ACCEPTED)
-    public void updateUser(@PathVariable(value = "id") int id, @PathVariable(value = "desc") String desc,
-            @PathVariable(value = "login") String login, @PathVariable(value = "password") String password) {
-        LOGGER.debug("updateUser: id = {}", id);
-        userService.updateUser(new User(id, login, password, desc));
+    public void updateUser(@RequestBody User user) {
+        LOGGER.debug("updateUser: id = {}", user.getUserId());
+        userService.updateUser(user);
     }
 
     //curl -v localhost:8088/user/login/userLogin1
@@ -56,5 +62,12 @@ public class UserRestController {
     public @ResponseBody User getUserById(@PathVariable(value = "id") Integer id) {
         LOGGER.debug("getUserById: login = {}", id);
         return userService.getUserById(id);
+    }
+
+    @RequestMapping(value = "/user/{id}", method = RequestMethod.DELETE)
+    @ResponseStatus(value = HttpStatus.OK)
+    public void deleteUserById(@PathVariable(value = "id") Integer id) {
+        LOGGER.debug("deleteUserById: id = {}", id);
+        userService.deleteUser(id);
     }
 }

@@ -54,7 +54,15 @@ public class UserServiceImpl implements UserService {
         Assert.isNull(user.getUserId(), "User Id should be null.");
         Assert.hasText(user.getLogin(), "User login should not be null.");
         Assert.hasText(user.getPassword(), "User password should not be null.");
-        //TODO: check login
+
+        try {
+            if (userDao.getUserByLogin(user.getLogin()) != null) {
+                throw new IllegalArgumentException("");
+            }
+        } catch (DataAccessException ex) {
+
+        }
+
         return userDao.addUser(user);
     }
 
