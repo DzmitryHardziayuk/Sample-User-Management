@@ -1,7 +1,7 @@
 package com.epam.test.client;
 
-import com.epam.test.client.rest.api.UsersConsumer;
 import com.epam.test.client.exception.ServerDataAccessException;
+import com.epam.test.client.rest.api.UsersConsumer;
 import com.epam.test.dao.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.support.ClassPathXmlApplicationContext;

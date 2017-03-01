@@ -1,54 +1,53 @@
-package com.epam.test.client.rest;
+package com.epam.test.client;
 
 import com.epam.test.client.exception.ServerDataAccessException;
 import com.epam.test.client.rest.api.UsersConsumer;
 import com.epam.test.dao.User;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.client.ClientHttpRequestFactory;
+import org.springframework.http.client.SimpleClientHttpRequestFactory;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
 
 /**
- * Users Consumer REST implementation.
+ * Users Consumer with REST.
  */
 public class UsersConsumerRest implements UsersConsumer {
 
-    private String hostUrl;
+    @Value("${user.protocol}://${user.host}:${user.port}/")
+    private String url;
+
+    @Value("${point.users}")
     private String urlUsers;
+
+    @Value("${point.user}")
     private String urlUser;
 
-    RestTemplate restTemplate;
-
-
-    public UsersConsumerRest(String hostUrl, String urlUsers, String urlUser) {
-        this.hostUrl = hostUrl;
-        this.urlUsers = urlUsers;
-        this.urlUser = urlUser;
-    }
-
-    public void setRestTemplate(RestTemplate restTemplate) {
-        this.restTemplate = restTemplate;
+    ClientHttpRequestFactory requestFactory = new SimpleClientHttpRequestFactory();
+    RestTemplate restTemplate = new RestTemplate(requestFactory);
+    {
+        restTemplate.setErrorHandler(new CustomResponseErrorHandler());
     }
 
     @Override
     public List<User> getAllUsers() throws ServerDataAccessException {
-        ResponseEntity responseEntity = restTemplate.getForEntity(hostUrl + "/" + urlUsers, List.class);
+        ResponseEntity responseEntity = restTemplate.getForEntity(url + urlUsers, Object.class);
         List<User> users = (List<User>) responseEntity.getBody();
         return users;
     }
 
     @Override
     public User getUserById(Integer userId) throws ServerDataAccessException {
-        ResponseEntity responseEntity = restTemplate.getForEntity(hostUrl + "/" + urlUser + "/" + userId, User.class);
-        Object user = responseEntity.getBody();
-        return (User) user;
+        return null;
     }
 
     @Override
     public User getUserByLogin(String login) throws ServerDataAccessException {
-        ResponseEntity responseEntity = restTemplate.getForEntity(hostUrl + "/" + urlUser + "/login/" + login, User.class);
-        Object user = responseEntity.getBody();
-        return (User) user;
+        ResponseEntity responseEntity = restTemplate.getForEntity(url + urlUser + "/" + login, Object.class);
+        User user = (User) responseEntity.getBody();
+        return user;
     }
 
     @Override
