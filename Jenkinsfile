@@ -1,4 +1,4 @@
-@Library('JavaCoursesLibrary@master') _
+@Library('JavaCoursesLibrary@service_lookup') _
 
 javaCoursesPipeline {
 username="name_surname"
